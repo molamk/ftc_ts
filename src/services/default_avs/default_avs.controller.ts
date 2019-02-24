@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { isValidDay, isValidTimeDuration, sendErr } from '../../helpers';
+import { isValidDay, isValidTimeDuration, pack, packArr, sendErr } from '../../helpers';
 import {
   createDefaultAv,
   deleteDefaultAv,
@@ -15,7 +15,7 @@ export const getByParams = (req: Request, res: Response) => {
     return res.status(400).send('User ID is required');
   }
   return getDefaultAvByUserId(userId)
-    .then(avs => res.send(avs))
+    .then(avs => res.send(packArr(avs)))
     .catch(sendErr(res));
 };
 
@@ -25,7 +25,7 @@ export const get = (req: Request, res: Response) => {
     return res.status(400).send('Availability ID is required');
   }
   return getDefaultAvById(id)
-    .then(av => res.send(av))
+    .then(av => res.send(pack(av)))
     .catch(sendErr(res));
 };
 

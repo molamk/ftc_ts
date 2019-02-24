@@ -37,6 +37,10 @@ export const getDefaultAvsByTmp = ({ userId, start, end }: IGetDefaultAvByTmp) =
   new Promise<IProjectedDefaultAv[]>((resolve, reject) => {
     DefaultAvailability.find({ userId })
       .then(avs => {
+        if (avs.length === 0) {
+          return resolve([]);
+        }
+
         const startDate = new Date(start * 1000);
         // const endDate = new Date(end * 1000);
 

@@ -9,15 +9,12 @@ export interface IDefaultAvailability {
 
 export interface IDefaultAvailabilityModel extends IDefaultAvailability, Document {}
 
-const defaultAvailabilitySchema = new Schema(
-  {
-    day: Number,
-    end: Number,
-    start: Number,
-    userId: String
-  },
-  { timestamps: true }
-);
+const defaultAvailabilitySchema = new Schema({
+  day: Number,
+  end: Number,
+  start: Number,
+  userId: String
+});
 
 export const DefaultAvailability = model<IDefaultAvailabilityModel>(
   'DefaultAvailability',

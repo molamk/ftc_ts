@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { Document } from 'mongoose';
 
 export const isNumber = (x: number | undefined) => x !== undefined && Number.isInteger(x);
 
@@ -29,6 +30,8 @@ interface IErr {
 }
 
 export const sendErr = (res: Response) => (err: Error) => {
+// tslint:disable-next-line: no-console
+  console.error(err);
   try {
     const formattedErr = JSON.parse(err.message) as IErr;
     res.status(formattedErr.code).send(formattedErr.message);
@@ -68,3 +71,6 @@ export enum TimeInterval {
 }
 
 export const addToUnix = (unix: number, interval: TimeInterval, n: number) => unix + n * interval;
+
+export const pack = (obj: Document) => JSON.parse(JSON.stringify(obj.toJSON()));
+export const packArr = (arr: Document[]) => arr.map(pack);

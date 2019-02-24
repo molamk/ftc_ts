@@ -1,4 +1,5 @@
 import { json, urlencoded } from 'body-parser';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
@@ -12,16 +13,24 @@ import unavs from './services/unavailabilities';
 
 dotenv.config();
 const port = process.env.PORT;
-const app = express();
+export const app = express();
 app.use(json());
 app.use(urlencoded({ extended: false }));
+app.use(cors());
+
+// TODO re-add logger
 app.use(morgan('combined'));
 // TODO Add authentication middleware
 
+// TODO Change back mongo URL
 // Mongoose
 const mongoURL = `mongodb+srv://${process.env.MONGO_USER}:${
   process.env.MONGO_PASSWORD
 }@cluster0-atvfz.mongodb.net/test?retryWrites=true`;
+
+// const mongoURL = 'mongodb://localhost:27017/ts_ftc';
+
+// TODO change back debug to TRUE
 mongoose.set('debug', true);
 mongoose.connect(mongoURL, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;

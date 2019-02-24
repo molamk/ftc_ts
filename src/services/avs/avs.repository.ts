@@ -24,6 +24,8 @@ export interface IStandardAvailability {
 
 export const getTrainerAvsByTimestamps = ({ userId, start, end }: IGetAvs) =>
   new Promise<IStandardAvailability[]>((resolve, reject) => {
+// tslint:disable-next-line: no-console
+    console.log({ userId, start, end });
     getDefaultAvsByTmp({ userId, start, end })
       .then(def => {
         getCustomAvByTimestamps({ userId, start, end })
